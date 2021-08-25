@@ -51,59 +51,83 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let choice = prompt("Pick your weapon!");
-    printResult(playRound(choice, computerPlay()));
-    choice = prompt("Pick your weapon!");
-    printResult(playRound(choice, computerPlay()));
-    choice = prompt("Pick your weapon!");
-    printResult(playRound(choice, computerPlay()));
-    choice = prompt("Pick your weapon!");
-    printResult(playRound(choice, computerPlay()));
-    choice = prompt("Pick your weapon!");
-    printResult(playRound(choice, computerPlay()));
-    if (cscore == pscore) {
-        console.log("It's a tie!");
-        console.log("Score: ", pscore," - ", cscore);
-    }
-    else if (cscore > pscore) {
-        console.log("You lost!");
-        console.log("Score: ", pscore," - ", cscore);
-    }
-    else {
-        console.log("You win!");
-        console.log("Score: ", pscore," - ", cscore);
-    }
+
+    const container = document.querySelector('.container');
+    const btn_r = document.createElement('button');
+    const btn_p = document.createElement('button');
+    const btn_s = document.createElement('button');
+    container.append(btn_r, btn_p, btn_s);
+
+    btn_r.innerText = "Rock";
+    btn_p.innerText = "Paper";
+    btn_s.innerText = "Scissors";
+
+    
+    const btn = document.querySelectorAll('button');
+    btn.forEach((button) => {
+        button.addEventListener('click', function() {
+            printResult(playRound(button.textContent, computerPlay()));
+        })
+    })
+    
+    
+    
 }
 
 function printResult(status) {
+    const container = document.querySelector('.container');
+    const div = document.createElement("div");
+    const button = document.querySelectorAll("button");
+    container.appendChild(div);
     if (status == -1) {
-        console.log("You lose! Paper beats Rock");
+        div.textContent = "You lose! Paper beats Rock.";
         cscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == -2) {
-        console.log("You lose! Scissors beats Paper");
+        div.textContent = ("You lose! Scissors beats Paper.");
         cscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == -3) {
-        console.log("You lose! Rock beats Scissors");
+        div.textContent = ("You lose! Rock beats Scissors.");
         cscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == 0) {
-        console.log("Draw!");
+        div.textContent = ("Draw!");
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == 1) {
-        console.log("You win! Paper beats Rock");
+        div.textContent = ("You win! Paper beats Rock.");
         pscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == 2) {
-        console.log("You win! Rock beats Scissors");
+        div.textContent = ("You win! Rock beats Scissors.");
         pscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
     }
     if (status == 3) {
-        console.log("You win! Scissors beats Paper");
+        div.textContent =   ("You win! Scissors beats Paper.");
         pscore++;
+        div.textContent += "\tScore: " + pscore + " - " + cscore;
+    }
+
+    if (pscore == 5) {
+        div.textContent += "You won the game!";
+        button.forEach((btn) => btn.remove()); 
+    }
+    if (cscore == 5) {
+        div.textContent += " You lost the game!";
+        button.forEach((btn) => btn.remove()); 
     }
 }
+
+
+
+
+
 game();
 /* 
 r p -1
